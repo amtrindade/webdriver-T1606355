@@ -29,7 +29,7 @@ public class WebElementsTest {
 		
 		//Abrir o browser no monitor auxiliar
 		Point point = new Point(-1500, 0); 
-		driver.manage().window().setPosition(point);
+		//driver.manage().window().setPosition(point);
 		
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");		
 	}
@@ -81,6 +81,24 @@ public class WebElementsTest {
 		assertFalse(rbLista.get(0).isSelected());
 		assertFalse(rbLista.get(1).isSelected());
 		assertFalse(rbLista.get(3).isSelected());
+	}
+	
+	@Test
+	public void testCheckBoxes() {
+		List<WebElement> chkBoxes = driver.findElements(By.name("chkbox"));
+		
+		for (WebElement chkBox : chkBoxes) {
+			if ((chkBox.getAttribute("value").equals("Check 3")) 
+					|| (chkBox.getAttribute("value").equals("Check 4"))){
+				chkBox.click();
+			}	
+		}
+		
+		assertTrue(chkBoxes.get(2).isSelected());
+		assertTrue(chkBoxes.get(3).isSelected());
+		
+		assertFalse(chkBoxes.get(0).isSelected());
+		assertFalse(chkBoxes.get(1).isSelected());
 	}
 
 }
