@@ -2,12 +2,17 @@ package com.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Iterator;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -23,13 +28,18 @@ public class WebElementsTest {
 		WebDriverManager.firefoxdriver().setup();
 		
 		driver = new FirefoxDriver();
-		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");
+		
+		//Abrir o browser no monitor auxiliar
+//		Point point = new Point(-1500, 0); 
+//		driver.manage().window().setPosition(point);
+		
+		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");		
 	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
 		// tempo de 5s para visualizar
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		driver.quit();
 	}
 
@@ -53,6 +63,26 @@ public class WebElementsTest {
 		
 		assertFalse(tfDisabled.isEnabled(), "tfDisable deveria estar desabilitado!");
 		assertTrue(tfEnable.isEnabled(), "tfEnable deveria estar habilitado!");
+	}
+	
+	@Test
+	public void testRadioButton() {
+		List<WebElement> rbLista = driver.findElements(By.name("radioGroup1"));
+		//Os 4 elementos foram capturados
+		assertEquals(4, rbLista.size());
+		
+		for (WebElement element : rbLista) {
+			//System.out.println(element.getAttribute("value"));
+			if (element.getAttribute("value").equals("Radio 3")) {
+				element.click();
+				break;
+			}
+		}
+		
+		assertTrue(rbLista.get(2).isSelected());
+		assertFalse(rbLista.get(0).isSelected());
+		assertFalse(rbLista.get(1).isSelected());
+		assertFalse(rbLista.get(3).isSelected());
 	}
 
 }
