@@ -1,12 +1,10 @@
 package com.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Iterator;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,8 +28,8 @@ public class WebElementsTest {
 		driver = new FirefoxDriver();
 		
 		//Abrir o browser no monitor auxiliar
-//		Point point = new Point(-1500, 0); 
-//		driver.manage().window().setPosition(point);
+		Point point = new Point(-1500, 0); 
+		driver.manage().window().setPosition(point);
 		
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");		
 	}
