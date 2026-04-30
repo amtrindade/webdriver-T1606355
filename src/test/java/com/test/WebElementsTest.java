@@ -1,6 +1,8 @@
 package com.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,12 +21,14 @@ public class WebElementsTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		WebDriverManager.firefoxdriver().setup();
+		
 		driver = new FirefoxDriver();
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");
 	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
+		// tempo de 5s para visualizar
 		Thread.sleep(5000);
 		driver.quit();
 	}
@@ -38,8 +42,17 @@ public class WebElementsTest {
 		tfEnable.sendKeys("Hello World!!!");
 		
 		//3. Valida o resultado esperado
-		assertEquals("Hello World!!!", tfEnable.getAttribute("value"));
+		assertEquals("Hello World!!!", tfEnable.getAttribute("value"));	
+	}
+	
+	@Test
+	public void testTextFieldEnableDisable() {
+		WebElement tfDisabled = driver.findElement(By.name("txtbox2"));
+		WebElement tfEnable = driver.findElement(By.name("txtbox1"));
 		
+		
+		assertFalse(tfDisabled.isEnabled(), "tfDisable deveria estar desabilitado!");
+		assertTrue(tfEnable.isEnabled(), "tfEnable deveria estar habilitado!");
 	}
 
 }
