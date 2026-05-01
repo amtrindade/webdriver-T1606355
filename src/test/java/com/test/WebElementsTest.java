@@ -14,6 +14,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -36,8 +37,8 @@ public class WebElementsTest {
 
 	@AfterEach
 	public void tearDown() throws Exception {
-		// tempo de 5s para visualizar
-		Thread.sleep(3000);
+		// tempo de 2s para visualizar
+		Thread.sleep(2000);
 		driver.quit();
 	}
 
@@ -99,6 +100,21 @@ public class WebElementsTest {
 		
 		assertFalse(chkBoxes.get(0).isSelected());
 		assertFalse(chkBoxes.get(1).isSelected());
+	}
+	
+	@Test
+	public void testDropDownSingle() throws InterruptedException {
+		WebElement dropSingle = driver.findElement(By.name("dropdownlist"));
+		
+		Select dropSelect = new Select(dropSingle);
+		
+		dropSelect.selectByValue("item1");
+		Thread.sleep(2000);
+		dropSelect.selectByIndex(5);
+		Thread.sleep(2000);
+		dropSelect.selectByVisibleText("Item 7");
+				
+		assertTrue(dropSelect.getFirstSelectedOption().getText().equals("Item 7"));
 	}
 
 }
