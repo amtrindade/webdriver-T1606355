@@ -29,8 +29,8 @@ public class WebElementsTest {
 		driver = new FirefoxDriver();
 		
 		//Abrir o browser no monitor auxiliar
-		Point point = new Point(-1500, 0); 
-		//driver.manage().window().setPosition(point);
+		Point point = new Point(-1500, -150); 
+		driver.manage().window().setPosition(point);
 		
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");		
 	}
@@ -114,7 +114,31 @@ public class WebElementsTest {
 		Thread.sleep(2000);
 		dropSelect.selectByVisibleText("Item 7");
 				
-		assertTrue(dropSelect.getFirstSelectedOption().getText().equals("Item 7"));
+		assertEquals("Item 7", dropSelect.getFirstSelectedOption().getText());
+	}
+	
+	@Test
+	public void testDropDownMulti() {
+		WebElement dropMulti = driver.findElement(By.name("multiselectdropdown"));
+		Select multiDrop = new Select(dropMulti);
+		
+		assertTrue(multiDrop.isMultiple());
+		
+		multiDrop.selectByVisibleText("Item 5");
+		multiDrop.selectByVisibleText("Item 8");
+		multiDrop.selectByVisibleText("Item 9");
+		
+		//multiDrop.deselectByVisibleText("Item 9");
+		
+		List<WebElement> optionsSelected = multiDrop.getAllSelectedOptions();
+		
+		assertEquals(3, optionsSelected.size());
+		assertEquals("Item 5", optionsSelected.get(0).getText());
+		assertEquals("Item 8", optionsSelected.get(1).getText());
+		assertEquals("Item 9", optionsSelected.get(2).getText());
+		
+		multiDrop.deselectAll();
+		
 	}
 
 }
