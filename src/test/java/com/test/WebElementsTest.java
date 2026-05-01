@@ -30,7 +30,7 @@ public class WebElementsTest {
 		
 		//Abrir o browser no monitor auxiliar
 		Point point = new Point(-1500, -150); 
-		driver.manage().window().setPosition(point);
+		//driver.manage().window().setPosition(point);
 		
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");		
 	}
@@ -38,7 +38,7 @@ public class WebElementsTest {
 	@AfterEach
 	public void tearDown() throws Exception {
 		// tempo de 2s para visualizar
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		driver.quit();
 	}
 
@@ -140,5 +140,20 @@ public class WebElementsTest {
 		multiDrop.deselectAll();
 		
 	}
-
+	
+	@Test
+	public void testIFrame() {
+		//Entra no iframe
+		driver.switchTo().frame("frame1");
+		
+		WebElement tfIframe = driver.findElement(By.id("tfiframe"));
+		tfIframe.sendKeys("Curso automação com Selenium WebDriver");
+		assertEquals("Curso automação com Selenium WebDriver", tfIframe.getAttribute("value"));	
+		
+		//Sai do iframe e volta a origem
+		driver.switchTo().defaultContent();
+		
+		WebElement btnAlert = driver.findElement(By.name("alertbtn"));
+		assertEquals("Alert", btnAlert.getAttribute("value"));		
+	}
 }
