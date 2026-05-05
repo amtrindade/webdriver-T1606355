@@ -39,7 +39,7 @@ public class WebElementsTest {
 	@AfterEach
 	public void tearDown() throws Exception {
 		// tempo de 2s para visualizar
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		driver.quit();
 	}
 
@@ -180,5 +180,32 @@ public class WebElementsTest {
 		Alert confirm = driver.switchTo().alert();
 		assertEquals("Pressione um botão!", confirm.getText());		
 		confirm.dismiss();		
+	}
+	
+	@Test
+	public void testPrompt() throws InterruptedException {
+		
+		WebElement btnPrompt = driver.findElement(By.id("promptBtn"));
+		btnPrompt.click();
+		
+		Alert prompt = driver.switchTo().alert();
+		assertEquals("Digite o ano:", prompt.getText());
+		
+		prompt.sendKeys("2026");
+		//Só para visualizar
+		Thread.sleep(2000);
+		prompt.accept();
+		
+		Alert alert1 = driver.switchTo().alert();
+		assertEquals("O ano é 2026?", alert1.getText());
+		//Só para visualizar
+		Thread.sleep(2000);
+		alert1.accept();
+		
+		Alert alert2 = driver.switchTo().alert();
+		assertEquals("Feito!", alert2.getText());
+		//Só para visualizar
+		Thread.sleep(2000);
+		alert2.accept();
 	}
 }
