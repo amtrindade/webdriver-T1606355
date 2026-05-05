@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -29,8 +30,8 @@ public class WebElementsTest {
 		driver = new FirefoxDriver();
 		
 		//Abrir o browser no monitor auxiliar
-		Point point = new Point(-1500, -150); 
-		//driver.manage().window().setPosition(point);
+//		Point point = new Point(-1500, -150); 
+//		driver.manage().window().setPosition(point);
 		
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/elementsweb.html");		
 	}
@@ -38,7 +39,7 @@ public class WebElementsTest {
 	@AfterEach
 	public void tearDown() throws Exception {
 		// tempo de 2s para visualizar
-		//Thread.sleep(2000);
+		Thread.sleep(2000);
 		driver.quit();
 	}
 
@@ -79,6 +80,7 @@ public class WebElementsTest {
 		}
 		
 		assertTrue(rbLista.get(2).isSelected());
+		
 		assertFalse(rbLista.get(0).isSelected());
 		assertFalse(rbLista.get(1).isSelected());
 		assertFalse(rbLista.get(3).isSelected());
@@ -155,5 +157,28 @@ public class WebElementsTest {
 		
 		WebElement btnAlert = driver.findElement(By.name("alertbtn"));
 		assertEquals("Alert", btnAlert.getAttribute("value"));		
+	}
+	
+	@Test
+	public void testAlert() throws InterruptedException {
+		
+		WebElement btnAlert = driver.findElement(By.name("alertbtn"));
+		btnAlert.click();
+		
+		Alert alert = driver.switchTo().alert();
+		assertEquals("Eu sou um alerta!", alert.getText());
+		alert.accept();
+		
+	}
+	
+	@Test
+	public void testConfirm() {
+		
+		WebElement btnConfirm = driver.findElement(By.name("confirmbtn"));
+		btnConfirm.click();
+		
+		Alert confirm = driver.switchTo().alert();
+		assertEquals("Pressione um botão!", confirm.getText());		
+		confirm.dismiss();		
 	}
 }
