@@ -25,8 +25,8 @@ public class CalculatorTest {
 		driver = new FirefoxDriver();
 		
 		//Abrir o browser no monitor auxiliar
-//		Point point = new Point(-1500, -150); 
-//		driver.manage().window().setPosition(point);
+		Point point = new Point(-1500, -150); 
+		driver.manage().window().setPosition(point);
 		
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/desafiosoma.html");		
 	}
