@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -143,6 +144,7 @@ public class WebElementsTest {
 		
 	}
 	
+	@Disabled("Bug cadastrado no bucktracker com o codigo ABC907")
 	@Test
 	public void testIFrame() {
 		//Entra no iframe
