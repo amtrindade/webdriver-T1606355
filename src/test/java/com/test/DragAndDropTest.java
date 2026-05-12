@@ -71,10 +71,10 @@ public class DragAndDropTest {
 		System.out.println("X: " + position.getX());
 		System.out.println("Y: " + position.getY());
 		
-		WebElement item1 = driver.findElement(By.xpath("//div[2]"));
-		WebElement item2 = driver.findElement(By.xpath("//div[3]"));
-		WebElement item3 = driver.findElement(By.xpath("//div[4]"));
-		WebElement item4 = driver.findElement(By.xpath("//div[5]"));
+		WebElement item1 = driver.findElement(By.xpath("//div[.='Item 1']"));
+		WebElement item2 = driver.findElement(By.xpath("//div[.='Item 2']"));
+		WebElement item3 = driver.findElement(By.xpath("//div[.='Item 3']"));
+		WebElement item4 = driver.findElement(By.xpath("//div[.='Item 4']"));
 		
 		assertEquals("Item 1", item1.getText());
 		assertEquals("Item 2", item2.getText());
