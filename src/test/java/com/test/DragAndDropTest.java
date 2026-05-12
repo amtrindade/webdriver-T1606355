@@ -112,5 +112,7 @@ public class DragAndDropTest {
 		assertEquals("Item 4", item4.getText());
 	}
 	
+	
+	//td[contains(text(),'Fulano')]/..//input
 
 }
