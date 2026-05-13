@@ -8,6 +8,9 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
@@ -58,8 +61,8 @@ public class NavigationTabsTest {
 		//Navega para primeira guia aberta
 		driver.switchTo().window(tabs.get(1));
 		
-		//TODO alterar forma de espera
-		Thread.sleep(2000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("numero")));
 		
 		assertEquals("Gerador de CPF", driver.getTitle());
 		

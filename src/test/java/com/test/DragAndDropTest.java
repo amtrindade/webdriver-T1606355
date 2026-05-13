@@ -9,9 +9,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.Duration;
 
 public class DragAndDropTest {
 	
@@ -68,8 +71,8 @@ public class DragAndDropTest {
 		
 		Point position = origin.getLocation();
 
-		System.out.println("X: " + position.getX());
-		System.out.println("Y: " + position.getY());
+//		System.out.println("X: " + position.getX());
+//		System.out.println("Y: " + position.getY());
 		
 		WebElement item1 = driver.findElement(By.xpath("//div[.='Item 1']"));
 		WebElement item2 = driver.findElement(By.xpath("//div[.='Item 2']"));
@@ -85,22 +88,15 @@ public class DragAndDropTest {
 			.dragAndDrop(origin, item1)
 			.perform();
 		
-		//TODO rever esperas por coordenada de tela
-		Thread.sleep(500);
 		
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//		wait.until(driver -> {
-//		    WebElement element = driver.findElement(By.id("meuElemento"));
-//
-//		    Point location = element.getLocation();
-//
-//		    int x = location.getX();
-//		    int y = location.getY();
-//
-//		    return x >= 295 && x <= 305 &&
-//		           y >= 495 && y <= 505;
-//		});
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		wait.until(driver -> {
+		    int x = position.getX();
+		    int y = position.getY();
+
+		    return x >= 7 && x <= 9 && y >= 114 && y <= 116;
+		});
 		
 		new Actions(driver)
 			.dragAndDrop(origin, item3)
