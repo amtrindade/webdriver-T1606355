@@ -29,6 +29,7 @@ public class NavigationTabsTest {
 		Point point = new Point(-1500, -150); 
 		driver.manage().window().setPosition(point);
 		
+		//espera implícita
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		
 		driver.get("https://antoniotrindade.com.br/treinoautomacao/index.html");		
