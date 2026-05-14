@@ -1,53 +1,32 @@
 package com.test;
 
-import org.junit.jupiter.api.AfterEach;
+import static com.core.DriverFactory.getDriver;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.core.BaseTest;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-public class RegularExpressionTest {
-	
-	public WebDriver driver;
+public class RegularExpressionTest extends BaseTest{
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		WebDriverManager.firefoxdriver().setup();
-		
-		driver = new FirefoxDriver();
-		
-		//Abrir o browser no monitor auxiliar
-		Point point = new Point(-1500, -150); 
-		driver.manage().window().setPosition(point);
-		
-		driver.get("https://www.geradordecpf.org/");		
-	}
-
-	@AfterEach
-	public void tearDown() throws Exception {
-		Thread.sleep(2000);
-		driver.quit();
+		getDriver().get("https://www.geradordecpf.org/");		
 	}
 	
 	@Test
 	public void testCPFValidationWithMask() {
-		WebElement cbPontos = driver.findElement(By.id("cbPontos"));
+		WebElement cbPontos = getDriver().findElement(By.id("cbPontos"));
 		cbPontos.click();
 		
-		WebElement btnGerarCPF = driver.findElement(By.id("btn-gerar-cpf"));
+		WebElement btnGerarCPF = getDriver().findElement(By.id("btn-gerar-cpf"));
 		btnGerarCPF.click();
 		
-		WebElement tfNumero = driver.findElement(By.id("numero"));
+		WebElement tfNumero = getDriver().findElement(By.id("numero"));
 		String cpfGerado = tfNumero.getAttribute("value");
-		
-		System.out.println(cpfGerado);
 		
 		assertTrue(cpfGerado.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"));
 		
@@ -56,13 +35,11 @@ public class RegularExpressionTest {
 	
 	@Test
 	public void testCPFValidationWithoutMask() {
-		WebElement btnGerarCPF = driver.findElement(By.id("btn-gerar-cpf"));
+		WebElement btnGerarCPF = getDriver().findElement(By.id("btn-gerar-cpf"));
 		btnGerarCPF.click();
 		
-		WebElement tfNumero = driver.findElement(By.id("numero"));
+		WebElement tfNumero = getDriver().findElement(By.id("numero"));
 		String cpfGerado = tfNumero.getAttribute("value");
-		
-		System.out.println(cpfGerado);
 		
 		assertTrue(cpfGerado.matches("^\\d{11}$"));
 	}

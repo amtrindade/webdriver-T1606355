@@ -1,54 +1,33 @@
 package com.test;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
+import static com.core.DriverFactory.getDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
 
-public class DragAndDropTest {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.core.BaseTest;
+
+public class DragAndDropTest extends BaseTest {
 	
-	public WebDriver driver;
-
-	@BeforeEach
-	public void setUp() throws Exception {
-		WebDriverManager.firefoxdriver().setup();
-		
-		driver = new FirefoxDriver();
-		
-		//Abrir o browser no monitor auxiliar
-		Point point = new Point(-1500, -150); 
-		driver.manage().window().setPosition(point);		
-	}
-
-	@AfterEach
-	public void tearDown() throws Exception {
-		// tempo de 2s para visualizar
-		Thread.sleep(2000);
-		driver.quit();
-	}
 	
 	@Test
 	public void testDragAndDropAction() throws InterruptedException {
-		driver.get("https://jqueryui.com/resources/demos/droppable/default.html");
+		getDriver().get("https://jqueryui.com/resources/demos/droppable/default.html");
 		
-		WebElement divDraggable = driver.findElement(By.id("draggable"));
-		WebElement divDroppable = driver.findElement(By.id("droppable"));
+		WebElement divDraggable = getDriver().findElement(By.id("draggable"));
+		WebElement divDroppable = getDriver().findElement(By.id("droppable"));
 		
 		assertEquals("Drag me to my target", divDraggable.getText());
 		assertEquals("Drop here", divDroppable.getText());
 		
-		new Actions(driver)
+		new Actions(getDriver())
 			.dragAndDrop(divDraggable, divDroppable)
 			.perform();
 		
@@ -56,7 +35,7 @@ public class DragAndDropTest {
 		
 		Thread.sleep(3000);
 		
-		new Actions(driver)
+		new Actions(getDriver())
 			.dragAndDropBy(divDraggable, 765, 460)
 			.perform();
 		
@@ -65,31 +44,31 @@ public class DragAndDropTest {
 	@Test
 	public void testDragAndDropMootools() throws InterruptedException {
 		
-		driver.get("https://sahitest.com/demo/dragDropMooTools.htm");
+		getDriver().get("https://sahitest.com/demo/dragDropMooTools.htm");
 		
-		WebElement origin = driver.findElement(By.id("dragger"));
+		WebElement origin = getDriver().findElement(By.id("dragger"));
 		
 		Point position = origin.getLocation();
 
 //		System.out.println("X: " + position.getX());
 //		System.out.println("Y: " + position.getY());
 		
-		WebElement item1 = driver.findElement(By.xpath("//div[.='Item 1']"));
-		WebElement item2 = driver.findElement(By.xpath("//div[.='Item 2']"));
-		WebElement item3 = driver.findElement(By.xpath("//div[.='Item 3']"));
-		WebElement item4 = driver.findElement(By.xpath("//div[.='Item 4']"));
+		WebElement item1 = getDriver().findElement(By.xpath("//div[.='Item 1']"));
+		WebElement item2 = getDriver().findElement(By.xpath("//div[.='Item 2']"));
+		WebElement item3 = getDriver().findElement(By.xpath("//div[.='Item 3']"));
+		WebElement item4 = getDriver().findElement(By.xpath("//div[.='Item 4']"));
 		
 		assertEquals("Item 1", item1.getText());
 		assertEquals("Item 2", item2.getText());
 		assertEquals("Item 3", item3.getText());
 		assertEquals("Item 4", item4.getText());
 		
-		new Actions(driver)
+		new Actions(getDriver())
 			.dragAndDrop(origin, item1)
 			.perform();
 		
 		
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 
 		wait.until(driver -> {
 		    int x = position.getX();
@@ -98,7 +77,7 @@ public class DragAndDropTest {
 		    return x >= 7 && x <= 9 && y >= 114 && y <= 116;
 		});
 		
-		new Actions(driver)
+		new Actions(getDriver())
 			.dragAndDrop(origin, item3)
 			.perform();
 		
