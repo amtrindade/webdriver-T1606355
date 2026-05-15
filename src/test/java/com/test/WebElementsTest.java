@@ -187,8 +187,6 @@ public class WebElementsTest extends BaseTest{
 		
 		Alert alert2 = getDriver().switchTo().alert();
 		assertEquals("Feito!", alert2.getText());
-		//Só para visualizar
-		Thread.sleep(2000);
 		alert2.accept();
 	}
 }
